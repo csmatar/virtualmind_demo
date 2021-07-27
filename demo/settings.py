@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "core",
 ]
 
@@ -123,19 +124,9 @@ STATIC_URL = "/static/"
 
 # DRF SETTINGS
 # ==================================================================
-PERMISSION_AUTH = ("rest_framework.permissions.IsAuthenticated",)
-RENDERER_CLASSES = ("rest_framework.renderers.JSONRenderer",)
-
-
-RENDERER_CLASSES = RENDERER_CLASSES + ("rest_framework.renderers.BrowsableAPIRenderer",)
-# PERMISSION_AUTH = ("rest_framework.permissions.IsAuthenticatedOrReadOnly",)
-
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": PERMISSION_AUTH,
-    "DEFAULT_RENDERER_CLASSES": RENDERER_CLASSES,
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
-    ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ],
 }
