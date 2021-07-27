@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 
 from rest_framework.views import View
+from .models import FibNum
 
 
 def fib(n: int) -> int:
@@ -13,7 +14,12 @@ def fib(n: int) -> int:
 
 class FibboApiView(View):
     def get(self, request, num):
-        num = num
+        FibNum.objects.create(
+            num = num
+        )
+        
+        print("DB Num-->", FibNum.objects.all())
+
         result = [i for i in fib(num)] 
         print(result)
 
